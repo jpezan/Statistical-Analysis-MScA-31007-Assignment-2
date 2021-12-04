@@ -1,0 +1,36 @@
+---
+title: "Assignment 2"
+output: html_notebook
+author: Jacqueline Pezan
+date: 10-11-2021
+---
+
+```{r}
+dataPath <- "~/UChicago/31007_Stats_Lec/Assignment2/"
+df <- read.table(paste0(dataPath, 'Week2_Test_Sample.csv'), header=TRUE)
+
+# Standard Dev of X & Y
+sdX<-(df$x)
+sdX<- sd(sdX)
+sdX<- round(sdX, digits = 2)
+
+sdY<-(df$y)
+sdY <- sd(sdY)
+sdY<-round(sdY, digits = 2)
+
+# Correlation 
+cXY<-cor(df$x, df$y)
+cXY<-round(cXY, digits = 2)
+
+# Slope 
+a<-((sdY/sdX)*cXY)
+a
+#Use to check 
+e<-coef(lm(y~x, data=df))
+e
+
+# Results
+result <- data.frame(sdX=sdX, sdY=sdY, cXY=cXY, a=a)
+write.table(result, file = paste(dataPath,'result.csv',sep = '/'), row.names = F)
+
+```
